@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>批量添加</title>
+    <link rel="stylesheet" th:href="@{/user/plugn/layui/css/layui.css}"  media="all">
+    <script th:src="@{/user/plugn/jquery/jquery.min.js}"></script>
+    <script th:src="@{/user/plugn/layui/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<input type="button" value="批量插入" id="addUser" onclick="ajaxTwoQuotation()">
+<input type="button" value="批量更新" id="updateUser" onclick="updateUser()">
+</body>
+<script th:inline="javascript">
+ var cont = '[[@{/}]]';
+ var context =cont.substring(1,cont.length-1)//跟路径
+ var layer;
+layui.use('layer',function(){
+    layer=layui.layer;
+});
+
+ function ajaxTwoQuotation(){
+     debugger;
+     var data = JSON.stringify([{"username":"1","age":"11807009","ctm":"1"}
+         ,{"username":"2","age":"11807009","ctm":"1"}
+     ]);
+     $.ajax({
+         dataType: "JSON",
+         contentType:'application/json;charset=UTF-8',//关键是要加上这行
+         //traditional:true,//这使json格式的字符不会被转码
+         data: data,
+         type: "post",
+         timeout: 20000,
+         url: context+"/saveUserList",
+         success:function(data){
+             debugger;
+             if(data.status == "0"){
+                 layer.msg(data.msg,{time:1000});
+             }else{
+                 layer.msg("任务成功",{time:1000});
+             }
+             $("#setTime").removeAttr("disabled").val("二次报价");
+         },
+         error:function(){
+             layer.msg("任务失败",{time:2000});
+             $("#setTime").removeAttr("disabled").val("二次报价");
+         }
+
+     });
+ }
+
+ function updateUser(){
+     debugger;
+     var data = JSON.stringify([{"username":"1","age":"11807009","ctm":"1"}
+         ,{"username":"2","age":"11807009","ctm":"1"}
+     ]);
+     $.ajax({
+         dataType: "JSON",
+         contentType:'application/json;charset=UTF-8',//关键是要加上这行
+         //traditional:true,//这使json格式的字符不会被转码
+         data: data,
+         type: "post",
+         timeout: 20000,
+         url: context+"/saveUserList",
+         success:function(data){
+             debugger;
+             if(data.status == "0"){
+                 layer.msg(data.msg,{time:1000});
+             }else{
+                 layer.msg("任务成功",{time:1000});
+             }
+             $("#setTime").removeAttr("disabled").val("二次报价");
+         },
+         error:function(){
+             layer.msg("任务失败",{time:2000});
+             $("#setTime").removeAttr("disabled").val("二次报价");
+         }
+
+     });
+ }
+
+
+
+</script>
+</html>

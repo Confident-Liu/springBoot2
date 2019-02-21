@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>登录页</title>
+	<link rel="stylesheet" th:href="@{/user/css/login.css}"  media="all">
+	<link rel="stylesheet" th:href="@{/user/plugn/layui/css/layui.css}"  media="all">
+	<script th:src="@{/user/plugn/jquery/jquery.min.js}"></script>
+	<script th:src="@{/user/plugn/layui/layui.js}" charset="utf-8"></script>
+	<script th:src="@{/user/js/login.js}"></script>
+</head>
+
+<body>
+<div class="main-login">
+	<div class="login-logo">
+		<!--<img  th:src="@{/noticeBookStatic/img/bigLogo1.png}" alt="" style="height:45px;"/>-->
+		<img  th:src="@{/user/img/1550631091(1).jpg}" alt="" id="loginImg"/>
+	</div>
+	<div class="login-content">
+		<input id="path" value="&lt;%=path %&gt;" type="hidden">
+		<form action="" method="post" id="login-form" name="login-form">
+			<div class="login-info">
+				<span class="user">&nbsp;</span>
+				<input name="login_name" id="login_name" value="jiangfeng" class="login-input" type="text" placeholder="请输入账户名">
+			</div>
+			<div class="login-info">
+				<span class="pwd">&nbsp;</span>
+				<input name="password" id="password"  value="29" class="login-input" type="password" placeholder="请输入密码">
+			</div>
+			<div class="login-oper">
+				<input name="" value="" checked="checked" type="checkbox">记住密码
+			</div>
+			<div class="login-oper">
+				<a href="javascript:checkLogin()"  class="login-btn">登录</a>
+				<input name="" onclick="defultLogin()" value="重 置" class="login-reset" type="button">
+			</div>
+		</form>
+	</div>
+
+</div>
+
+<script type="application/javascript" th:inline = "javascript">
+    var cont = '[[@{/}]]';//获取根
+    var context =cont.substring(1,cont.length-1)//跟路径
+    $(function() {
+        layui.use(['laypage', 'layer'], function(){
+            var laypage = layui.laypage
+                ,layer = layui.layer;
+        });
+    });
+
+</script>
+
+
+</body></html>

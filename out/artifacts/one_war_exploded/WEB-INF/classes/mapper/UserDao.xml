@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.one.dao.UserDaoMapper">
+  <!--批量插入-->
+    <insert id="saveUserList" parameterType="com.example.one.model.User">
+        <foreach collection="LogBookList" index="index" item="emp" separator=";" open="begin" close=";end;">
+            insert into tb_user (username,age,ctm)
+            VALUES( #{emp.username,jdbcType=VARCHAR},#{emp.age,jdbcType=VARCHAR},#{emp.ctm,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+
+    <!--关键字模糊查询1-->
+    <select id="selectUserList" parameterType="string" resultType="com.example.one.model.User">
+        select t.* from tb_user t
+        <if test="flag != null and flag != ''">
+            where
+            t.username like '%${flag}%'
+            or t.age like '%${flag}%'
+            or t.ctm like '%${flag}%'
+        </if>
+    </select>
+    <!--关键字模糊查询2-->
+    <select id="selectUserListTwo" parameterType="string" resultType="com.example.one.model.User">
+        select t.* from tb_user t
+            where
+            t.username = #{arg0}
+    </select>
+    <!--查询3-->
+    <select id="selectUserListThree" parameterType="string" resultType="com.example.one.model.User">
+        select  t.* from tb_user t
+        where
+        <choose>
+            <when test="arg0 == 1">
+                t.username = #{arg0}
+            </when>
+            <otherwise>
+                t.gys_sj = #{arg0}
+            </otherwise>
+        </choose>
+        and t.age = #{arg1}
+    </select>
+
+    <!--批量更新-->
+    <update id="updateUser" parameterType="arraylist">
+        <foreach collection="listMap" index="index" item="item" separator=";" close=";end;" open="begin">
+            UPDATE tb_user
+            <set>
+                username = #{item.username,jdbcType=VARCHAR}, age = #{item.age,jdbcType=VARCHAR},
+                ctm = #{item.ctm,jdbcType=VARCHAR}
+            </set>
+            WHERE id = #{item.id,jdbcType=VARCHAR} and username = #{item.username,jdbcType=VARCHAR}
+            and age = #{item.age,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+    <!--trim用法-->
+    <update id="userUpdateTrim" parameterType="string">
+        update tb_user
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id} ">
+            <if test="username != null and username.length()>0"> username=#{username} , </if>
+            <if test="age != null and age.length()>0"> age=#{age} ,  </if>
+        </trim>
+    </update>
+
+    <select id="selectUs" parameterType="string" resultType="com.example.one.model.User">
+select * from  tb_user t where t.age=#{arg0}
+    </select>
+
+    <select id="selectOneUserByNameAndPsd" parameterType="string" resultType="com.example.one.model.User">
+        select * from  tb_user t where t.username=#{arg0} and t.age=#{arg1}
+    </select>
+
+
+</mapper>

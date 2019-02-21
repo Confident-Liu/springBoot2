@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/user/plugn/layui/css/layui.css}"  media="all">
+    <script th:src="@{/user/plugn/jquery/jquery.min.js}"></script>
+    <script th:src="@{/user/plugn/layui/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+<h3>springBoot 项目启动成功</h3>
+<input type="button" onclick="deploy()" value="登陆">
+<input type="button" onclick="addUser()" value="批量添加页面">
+
+<input type="text" onblur="selectUserList(this)" value="模糊查询dao参数形式1">
+<input type="text" onblur="selectUserListTwo(this)" value="准确查询">
+<input type="button" onclick="updateUser()" value="批量更新">
+<input type="button" onclick="selectUs()" value="多数据源应用">
+<input type="button" onclick="addRedis()" value="redis测试">
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+    var cont = '[[@{/}]]';//获取根
+    var context =cont.substring(1,cont.length-1)//跟路径
+    function login(){
+        debugger
+        window.location.href=context+"/getListUser";
+    }
+    function addUser(){
+        debugger
+        window.location.href=context+"/addUser";
+    }
+    function selectUserList(this_){
+        var flag=$(this_).val();
+        window.location.href=context+"/selectUserList?flag="+flag;
+    }
+    function selectUserListTwo(this_){
+        var flag=$(this_).val();
+        window.location.href=context+"/selectUserListTwo?flag="+flag;
+    }
+    function updateUser(){
+        window.location.href=context+"/updateUserHtml";
+    }
+    function selectUs(){
+        window.location.href=context+"/selectUs?username=29";
+    }
+    function addRedis() {
+        window.location.href=context+"/addRedis?key=yan&value=yun";
+    }
+</script>
+</html>

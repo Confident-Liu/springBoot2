@@ -1,0 +1,18 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.example.one.config.datasource.datasource",
+      "name": "spring.datasource.oracle",
+      "sourceMethod": "druidOracleDataSource()",
+      "type": "javax.sql.DataSource"
+    },
+    {
+      "sourceType": "com.example.one.config.datasource.datasource",
+      "name": "spring.datasource2.oracle2",
+      "sourceMethod": "druidMicrosoftDataSource()",
+      "type": "javax.sql.DataSource"
+    }
+  ],
+  "properties": []
+}

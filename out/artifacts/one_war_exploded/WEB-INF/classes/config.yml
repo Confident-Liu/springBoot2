@@ -1,0 +1,18 @@
+# 配置相关属性
+supplierUrl: http://113.201.60.212:6130/gyszzbm/
+#生成通知书的url
+sctzsUrl: http://10.106.36.98:8080/wzcggl/
+#高拍仪拍照存储地址（本地）
+photoUrl: file\
+# ftp存储目录
+ftpCalalog: /zbtzs_tmp/
+# ftp 高拍仪目录
+ftpCalaFtp: /zbtzs_ftp/
+#互联网短信账户名
+message_CorpID:
+#互联网短信密码
+message_Pwd:
+#互联网短信证书名称
+message_certFile:
+#互联网短信证书密码
+message_certPassWord:

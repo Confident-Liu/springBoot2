@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>分页</title>
+    <link rel="stylesheet" th:href="@{/user/plugn/layui/css/layui.css}"  media="all">
+    <script th:src="@{/user/plugn/jquery/jquery.min.js}"></script>
+    <script th:src="@{/user/plugn/layui/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+<!--<div class="userList" th:each="user,start:${userList}">
+ <span>id：</span><h3 th:text="${user.id}"></h3>
+ <span>名字：</span><h3 th:text="${user.username}"></h3>
+ <span>年龄：</span><h3 th:text="${user.age}"></h3>
+ <span>日期：</span><h3 th:text="${user.ctm}"></h3>
+</div>-->
+<div id="userListFenye" >
+    <table class="layui-table  marginda">
+        <colgroup>
+            <col width="10%">
+            <col width="10%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>id</th>
+            <th>名称</th>
+            <th>年龄</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+        <tbody id="datalist1">
+        </tbody>
+    </table>
+</div>
+<!--分页-->
+<div id="page"></div>
+</body>
+<script type="text/javascript" th:inline="javascript" charset="UTF-8">
+    layui.use(['layer', 'form','laypage'],function(){
+     var form = layui.form,layer = layui.layer,laypage=layui.laypage;
+
+$(function(){
+debugger
+
+    var json = [[${userList}]];//JSON数组
+    //完整功能
+    laypage.render({
+        elem: 'page',
+        count: json.length,
+        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+        limit:2,
+        limits:[2, 4, 6, 8, 10],
+        jump: function(obj){
+            //模拟渲染
+            document.getElementById('datalist1').innerHTML = function(){
+                var arr = []
+                    ,thisData = json.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                layui.each(thisData, function(index, item){
+                    arr.push('<tr>');
+                    arr.push('<td>'+ (index+1) +'</td>');
+                    arr.push('<td>'+ item.id +'</td>');
+                    arr.push('<td>'+ item.username +'</td>');
+                    arr.push('<td>'+ item.age +'</td>');
+                    arr.push('<td>'+ item.ctm +'</td>');
+                  /*  arr.push('<td class="no_zb_start">'+ item.no_zb_start +'</td>');
+                    arr.push('<td class="last"><a href="'+item.no_zb_url+'" onclick="zhongbiao('+item.docid+','+item.zbcs+',this)" class="bidding" title="中标">[下载]</a>'+
+                        '<a href="'+item.no_cj_url+'"  onclick="chengjiao('+item.docid+','+item.zbcs+',this)" class="cj" title="成交">[下载]</a></td>');*/
+                    arr.push('</tr>');
+                });
+                return arr.join('');
+            }();
+        }
+    });
+
+
+
+})
+
+
+
+
+ })
+
+</script>
+</html>
